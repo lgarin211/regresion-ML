@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <form method="get" action="/predict">
+        <div class="col-12" id="inputpoin"></div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      var question = [
+        [
+          "Owned_Realty",
+          "option",
+          [
+            [0, "Y"],
+            [1, "N"],
+          ],
+        ],
+        ["Total_Children", "number"],
+        ["Total_Income", "number"],
+        [
+          "Education_Type",
+          "option",
+          [
+            [0, "Lower secondary"],
+            [1, "Secondary / secondary special"],
+            [2, "Incomplete higher"],
+            [3, "Higher education"],
+            [4, "Academic degree"],
+          ],
+        ],
+        [
+          "Family_Status",
+          "option",
+          [
+            [0, "Single / not married"],
+            [1, "Married"],
+            [2, "Civil marriage"],
+            [3, "Widow"],
+            [4, "Separated"],
+            [5, "Unknown"],
+          ],
+        ],
+        [
+          "Housing_Type",
+          "option",
+          [
+            [0, "House / apartment"],
+            [1, "Rented apartment"],
+            [2, "With parents"],
+            [3, "Municipal apartment"],
+            [4, "Office apartment"],
+            [5, "Co-op apartment"],
+            [6, "Rented house"],
+            [7, "House / apartment for staff"],
+            [8, "Mobile home"],
+            [9, "Other"],
+            [10, "Unknown"],
+          ],
+        ],
+        ["Applicant_Age", "number"],
+        ["Years_of_Working", "number"],
+        ["Total_Bad_Debt", "number"],
+        ["Total_Good_Debt", "number"],
+      ];
+
+      function loadform() {
+        var form = document.getElementById("inputpoin");
+        var temp = ``;
+        question.forEach((element) => {
+          if (element[1] != "option") {
+            temp += `
+            <div class="mb-3">
+              <label for="Expoinfor${element[0]}" class="form-label">${element[0]}</label>
+              <input type="${element[1]}" class="form-control" id="Expoinfor${element[0]}" aria-describedby="${element[0]}Help" name="${element[0]}" />
+              <div id="${element[0]}help" class="form-text">${element[0]} Please fill in the ${element[1]}.</div>
+            </div>
+            `;
+          } else {
+            var opt = "";
+            element[2].forEach((el) => {
+              opt += `<option value="${el[0]}">${el[1]}</option>`;
+            });
+            temp += `
+          <div class="mb-3">
+            <label for="Expoinfor${element[0]}" class="form-label">${element[0]}</label>
+            <select class="form-select" id="Expoinfor${element[0]}" aria-describedby="${element[0]}Help" name="${element[0]}">
+              ${opt}
+            </select>
+            <div id="${element[0]}help" class="form-text">${element[0]} Please fill in the ${element[1]}.</div>
+          </div>
+          `;
+          }
+        });
+        form.innerHTML = temp;
+      }
+      loadform();
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
